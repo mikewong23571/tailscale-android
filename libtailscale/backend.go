@@ -66,6 +66,7 @@ type App struct {
 }
 
 func start(dataDir, directFileRoot string, hwAttestationPref bool, appCtx AppContext) Application {
+	configureWSS()
 	defer func() {
 		if p := recover(); p != nil {
 			log.Printf("panic in Start %s: %s", p, debug.Stack())

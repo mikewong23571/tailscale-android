@@ -26,6 +26,7 @@ export TS_USE_TOOLCHAIN=1
 # As of 2026-04-15, we disable netmap caching on Android until we have UI
 # affordances for debugging it.
 GOMOBILE_BUILD_TAGS := ts_omit_cachenetmap
+WSS_LDFLAGS ?=
 
 # Pull androidApiLevel from gradle.properties.
 ANDROID_API_LEVEL := $(shell grep '^androidApiLevel=' android/gradle.properties | cut -d'=' -f2)
@@ -225,7 +226,7 @@ build-unstripped-aar: tailscale.version $(GOBIN)/gomobile
 	# to support 16kb page sizes.  Your mileage may vary with other NDK versions.
 	$(GOBIN)/gomobile bind -target android -androidapi 26 \
 		-tags "$$(./build-tags.sh) $(GOMOBILE_BUILD_TAGS)" \
-		-ldflags "-linkmode=external -extldflags=-Wl,-z,max-page-size=16384 $$(./version-ldflags.sh)" \
+		-ldflags "-linkmode=external -extldflags=-Wl,-z,max-page-size=16384 $$(./version-ldflags.sh) $(WSS_LDFLAGS)" \
 		-o $(ABS_UNSTRIPPED_AAR) ./libtailscale || { echo "gomobile bind failed"; exit 1; }
 	@if [ ! -f $(ABS_UNSTRIPPED_AAR) ]; then \
 	    echo "Error: $(ABS_UNSTRIPPED_AAR) was not created"; exit 1; \

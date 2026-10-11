@@ -22,6 +22,7 @@ android {
   compileSdk = androidApiLevel
 
   defaultConfig {
+    applicationId = "com.mikewong.headscale.wss"
     minSdk = 26
     targetSdk = androidApiLevel
 
