@@ -18,6 +18,7 @@ docker run --rm \
   -v "$PWD/.android-docker:/root/.android" \
   -v "$PWD/.gradle-docker:/build/.gradle" \
   -v "$PWD/.cache-docker:/build/.cache" \
+  --env GRADLE_USER_HOME=/build/.gradle \
   --env GOPATH=/build/.cache/go --env GOMODCACHE=/build/.cache/go/pkg/mod \
   tailscale-android-build-amd64-20260912-1 make tailscale-debug \
   'WSS_LDFLAGS=-X github.com/tailscale/tailscale-android/libtailscale.wssControlURL=https://original.example.com -X github.com/tailscale/tailscale-android/libtailscale.wssEndpoint=https://wss.example.com'
@@ -33,3 +34,8 @@ export/import mechanism is established. Preserve the official app and its data
 for rollback. Keep the private signing key outside Git; debug APKs are for
 testing. Subsequent releases must use the same signing key to preserve this
 fork's own device state.
+
+2026-10-11 test build: APK generation succeeded; all 67 Android unit tests passed.
+The independent application ID and APK certificate were checked. Physical-device
+VPN and WSS connectivity have not yet been tested. Preserve `.android-docker`
+privately to retain the test signing key; it is excluded from Git.
