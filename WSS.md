@@ -39,3 +39,9 @@ fork's own device state.
 The independent application ID and APK certificate were checked. Physical-device
 VPN and WSS connectivity have not yet been tested. Preserve `.android-docker`
 privately to retain the test signing key; it is excluded from Git.
+
+Logins through this fork explicitly disable accepting Tailscale DNS settings.
+Existing profiles should also turn off Settings > DNS > Use Tailscale DNS
+settings. This preserves the underlying network DNS; MagicDNS names are no
+longer automatically configured by the client. The control endpoint's own DNS
+resolution remains separate.
